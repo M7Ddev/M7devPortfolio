@@ -1,0 +1,91 @@
+@import 'tailwindcss';
+
+/* `dark:` utilities follow the theme switch (data-theme on <html>), not just the system setting. */
+@custom-variant dark (&:where([data-theme='dark'], [data-theme='dark'] *));
+
+/*
+ * THEME — the single place to change fonts and colors.
+ *
+ * Each value below becomes a Tailwind utility through the @theme block:
+ *   --foreground  ->  text-foreground, bg-foreground, border-foreground ...
+ *   --font-body   ->  font-sans (the default for the whole page)
+ *
+ * Components only use these semantic names (never raw colors like `gray-500`),
+ * so changing a value here restyles the whole site, in both light and dark mode.
+ *
+ * Palette inspired by thmanyah.com (warm off-white, black text) with a royal blue accent.
+ * All text colors meet WCAG AA contrast on both background and surface.
+ */
+:root {
+  /* Light mode */
+  --background: #f6f4ee; /* page background (warm off-white) */
+  --surface: #fdfcfa; /* cards, panels */
+  --foreground: #0a0a0a; /* main text */
+  --muted: #4d4d4d; /* secondary text */
+  --border: #e4e1d9; /* dividers, card outlines */
+  --accent: #0a0a0a; /* primary buttons */
+  --accent-foreground: #ffffff; /* text on top of accent */
+  --brand: #2563eb; /* royal blue: focus ring and other non-text highlights */
+  --brand-text: #1d4ed8; /* blue for text (darker shade for stronger contrast on the cream background) */
+
+  /* One font for both languages: IBM Plex Sans Arabic includes Latin letters (IBM Plex Sans).
+     Loaded from Google Fonts in index.html. */
+  --font-body: 'IBM Plex Sans Arabic', ui-sans-serif, system-ui, sans-serif;
+
+  color-scheme: light;
+}
+
+:root[data-theme='dark'] {
+  --background: #121110;
+  --surface: #1c1b19;
+  --foreground: #f6f4ee;
+  --muted: #ada9a0;
+  --border: #33312d;
+  --accent: #f6f4ee;
+  --accent-foreground: #121110;
+  --brand: #60a5fa;
+  --brand-text: #60a5fa; /* lighter blue reads well on dark backgrounds */
+
+  color-scheme: dark;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-surface: var(--surface);
+  --color-foreground: var(--foreground);
+  --color-muted: var(--muted);
+  --color-border: var(--border);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-brand: var(--brand);
+  --color-brand-text: var(--brand-text);
+  --font-sans: var(--font-body);
+}
+
+@layer base {
+  /* Full-page scrolling on touch devices: each section (and each project card) is a stop,
+     so one swipe moves to the next. Elements opt in with snap-start / snap-end.
+     Mouse and trackpad paging is handled in src/hooks/useFullPageScroll.ts instead. */
+  @media (pointer: coarse) {
+    html {
+      scroll-snap-type: y mandatory;
+    }
+  }
+
+  /* Glide to sections from nav links, unless the visitor prefers reduced motion. */
+  @media (prefers-reduced-motion: no-preference) {
+    html {
+      scroll-behavior: smooth;
+    }
+  }
+
+  body {
+    @apply bg-background font-sans text-foreground antialiased;
+  }
+
+  /* Visible focus ring for keyboard users on every interactive element */
+  :focus-visible {
+    outline: 2px solid var(--color-brand);
+    outline-offset: 2px;
+  }
+}

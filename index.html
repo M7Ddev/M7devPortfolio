@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="ar" dir="rtl" data-theme="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>محمد الغفاري | مهندس برمجيات ومحلل بيانات</title>
+    <meta
+      name="description"
+      content="Portfolio of Mohammed Alghifari, a software engineer and data analyst building full-stack web apps, data dashboards and AI-powered products."
+    />
+
+    <!-- Apply the saved theme and language before the page paints, so it never flashes.
+         Defaults for first-time visitors: dark mode and Arabic. -->
+    <script>
+      ;(function () {
+        var root = document.documentElement
+        var theme, lang
+        try {
+          theme = localStorage.getItem('theme')
+          lang = localStorage.getItem('lang')
+        } catch (e) {}
+        theme = theme === 'light' ? 'light' : 'dark'
+        lang = lang === 'en' ? 'en' : 'ar'
+        root.dataset.theme = theme
+        root.lang = lang
+        root.dir = lang === 'ar' ? 'rtl' : 'ltr'
+      })()
+    </script>
+
+    <!-- Site font (Arabic and Latin). Google serves it in subsets, so English pages only download the small Latin part. -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&display=swap"
+    />
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>
